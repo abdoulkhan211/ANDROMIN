@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="Affordable and professional web design">
+    <meta name="keywords" content="web design, affordable web design, professional web design">
+    <meta name="author" content="Brad Traversy">
+    <title>ANDROMIN Web Deisgn | Welcome</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="./img/log.png">
+    <style>
+        
+}
+
+header {
+  background: #333;
+  color: #fff;
+  padding: 20px 0;
+}
+
+#branding h1 {
+  margin: 0;
+}
+
+.highlight {
+  color: #1e88e5;
+}
+
+.button_1 {
+  background: #1e88e5;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button_1:hover {
+  background: #0d47a1;
+}
+
+#newsletter input[type="email"] {
+  padding: 10px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+footer {
+  background: #333;
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  margin-top: 40px;
+}
+
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div id="branding">
+            <img src="./img/log.png" alt="logo" height="50px">
+          <h1><span class="highlight">ANDROMIN</span> Web Design</h1>
+        </div>
+        <nav>
+          <ul>
+            <li class="current"><a href="{{ url_for('index') }}">Accueil</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="services.html">Services</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <section id="showcase">
+      <div class="container">
+          
+        <h1>Notre service aujourd'hui</h1>
+        <p>ANDROMIN Service, Notre service partout et pour tous.</p>
+      </div>
+    </section>
+
+    <section id="newsletter">
+      <div class="container">
+        <h1>souscrire à notre service</h1>
+       <form action="https://formspree.io/f/mwkdnyoo" method="POST">
+           <input type="hidden" name="_subject" value="Nouvelle souscription à ANDROMIN !">
+           
+  <input type="email" name="email" placeholder="Entrer votre Email..." required>
+  <button type="submit" class="button_1">Souscrire</button>
+</form>
+
+      <div id="message"></div>
+      </div>
+    </section>
+
+    <section id="boxes">
+      <div class="container">
+        <div class="box">
+          <img src="./img/logo_html.png">
+          <h3>HTML5 Markup</h3>
+          <p>programmation avec les langages des designs et profitez de notre site</p>
+        </div>
+        <div class="box">
+          <img src="./img/logo_css.png">
+          <h3>CSS3 Styling</h3>
+          <p>programmation avec les langages des styles comme CSS3</p>
+        </div>
+        <div class="box">
+          <img src="./img/logo_brush.png">
+          <h3>Graphic Design</h3>
+          <p>profitez de notre site pour des graphiques designs</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>ANDROMIN Services, Copyright &copy; 2025</p>
+    </footer>
+
+    <script>
+        <script>
+  document.querySelector('form').addEventListener('submit', function() {
+    alert("Merci pour votre souscription !");
+  });
+</script>
+
+      document.getElementById('subscribe-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Empêche la soumission normale du formulaire
+        const email = document.getElementById('email').value;
+
+        fetch('/subscribe', { // Envoie une requête POST à /subscribe
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded', // Important pour Flask
+          },
+          body: 'email=' + encodeURIComponent(email), // Envoie les données du formulaire
+        })
+        .then(response => response.json()) // Parse la réponse JSON
+        .then(data => {
+          const messageDiv = document.getElementById('message');
+          if (data.status === 'success') {
+            messageDiv.textContent = data.message; // Affiche le message de succès
+            messageDiv.style.color = 'green';
+          } else {
+            messageDiv.textContent = data.message; // Affiche le message d'erreur
+            messageDiv.style.color = 'red';
+          }
+        })
+        .catch(error => {
+          console.error('Erreur:', error);
+          document.getElementById('message').textContent = 'Une erreur s\'est produite.';
+          document.getElementById('message').style.color = 'red';
+        });
+      });
+    </script>
+  </body>
+</html>
