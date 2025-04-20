@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+il<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -124,36 +124,6 @@ footer {
   document.querySelector('form').addEventListener('submit', function() {
     alert("Merci pour votre souscription !");
   });
-</script>
 
-      document.getElementById('subscribe-form').addEventListener('submit', function(event) {
-        event.preventDefault(); // Empêche la soumission normale du formulaire
-        const email = document.getElementById('email').value;
-
-        fetch('/subscribe', { // Envoie une requête POST à /subscribe
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded', // Important pour Flask
-          },
-          body: 'email=' + encodeURIComponent(email), // Envoie les données du formulaire
-        })
-        .then(response => response.json()) // Parse la réponse JSON
-        .then(data => {
-          const messageDiv = document.getElementById('message');
-          if (data.status === 'success') {
-            messageDiv.textContent = data.message; // Affiche le message de succès
-            messageDiv.style.color = 'green';
-          } else {
-            messageDiv.textContent = data.message; // Affiche le message d'erreur
-            messageDiv.style.color = 'red';
-          }
-        })
-        .catch(error => {
-          console.error('Erreur:', error);
-          document.getElementById('message').textContent = 'Une erreur s\'est produite.';
-          document.getElementById('message').style.color = 'red';
-        });
-      });
-    </script>
   </body>
 </html>
