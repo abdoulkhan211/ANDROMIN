@@ -453,83 +453,114 @@
                         Une erreur s'est produite. Veuillez réessayer plus tard.
                     </div>
                     
-                    <!-- Formulaire configuré pour envoyer à andromintv@gmail.com via FormSubmit -->
-                    <form action="https://formsubmit.co/andromintv@gmail.com" method="POST" id="contactForm">
-                        <input type="hidden" name="_subject" value="Nouveau message depuis le site ANDROMIN">
-                        <input type="hidden" name="_template" value="table">
-                        <input type="hidden" name="_next" value="https://votresite.com/merci.html"> <!-- <input type="hidden" name="_next" value="https://votresite.com/merci.html"> -->
-                        
-                        <div class="form-group">
-                            <label for="name">Votre nom complet</label>
-                            <input type="text" id="name" name="name" class="form-control" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email">Votre email</label>
-                            <input type="email" id="email" name="email" class="form-control" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="phone">Votre téléphone (optionnel)</label>
-                            <input type="tel" id="phone" name="phone" class="form-control">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="subject">Sujet</label>
-                            <select id="subject" name="subject" class="form-control" required>
-                                <option value="" disabled selected>Sélectionnez un sujet</option>
-                                <option value="question">Question sur les tutoriels</option>
-                                <option value="support">Support technique</option>
-                                <option value="partnership">Partenariat</option>
-                                <option value="other">Autre</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="message">Votre message</label>
-                            <textarea id="message" name="message" class="form-control" required></textarea>
-                        </div>
-                        
-                        <button type="submit" class="btn">Envoyer le message</button>
-                    </form>
-                </div>
-            </div>
-            
-            <div class="map-container">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1ddummy!2dNiger!3dTahoua!4d14.8888!5d5.2692" allowfullscreen="" loading="lazy"></iframe>
-            </div>
-        </div>
-    </section>
+                    <!-- Formulaire de contact amélioré -->
+<div class="contact-form">
+    <h2>Envoyez-nous un message</h2>
     
-    <footer>
-        <div class="container footer-content">
-            <div class="logo">
-                <span class="logo-icon"><i class="fas fa-code"></i></span>
-                <span>ANDROMIN</span>
+    <!-- Messages d'alerte -->
+    <div id="alertSuccess" class="alert alert-success" style="display: none;">
+        <i class="fas fa-check-circle"></i> Merci pour votre message! Nous vous répondrons dès que possible.
+    </div>
+    
+    <div id="alertError" class="alert alert-error" style="display: none;">
+        <i class="fas fa-exclamation-circle"></i> Une erreur s'est produite. Veuillez réessayer plus tard.
+    </div>
+    
+    <!-- Formulaire configuré pour andromintv@gmail.com -->
+    <form id="contactForm" action="https://formsubmit.co/andromintv@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="Nouveau message depuis ANDROMIN">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://votredomaine.com/merci.html"> <!-- À personnaliser -->
+        
+        <div class="form-row">
+            <div class="form-group" style="flex: 1;">
+                <label for="fullName">Nom complet</label>
+                <input type="text" id="fullName" name="name" class="form-control" placeholder="Votre nom complet" required>
             </div>
-            <p>Votre plateforme d'apprentissage du développement web à Tahoua, Niger.</p>
             
-            <div class="copyright">
-                <p>&copy; 2025 ANDROMIN. Tous droits réservés.</p>
+            <div class="form-group" style="flex: 1;">
+                <label for="email">Adresse email</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="votre@email.com" required>
             </div>
         </div>
-    </footer>
+        
+        <div class="form-group">
+            <label for="phone">Téléphone</label>
+            <input type="tel" id="phone" name="phone" class="form-control" placeholder="+227 XX XX XX XX">
+        </div>
+        
+        <div class="form-group">
+            <label for="subject">Sujet</label>
+            <select id="subject" name="subject" class="form-control" required>
+                <option value="" disabled selected>Choisir un sujet</option>
+                <option value="support">Support technique</option>
+                <option value="tutorial">Question sur les tutoriels</option>
+                <option value="partnership">Partenariat</option>
+                <option value="other">Autre demande</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="message">Votre message</label>
+            <textarea id="message" name="message" class="form-control" rows="6" placeholder="Décrivez votre demande en détail..." required></textarea>
+        </div>
+        
+        <div style="text-align: center;">
+            <button type="submit" class="btn">
+                <i class="fas fa-paper-plane"></i> Envoyer le message
+            </button>
+        </div>
+    </form>
+</div>
 
-    <script>
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            // Vous pouvez ajouter ici du code pour gérer l'envoi AJAX si nécessaire
-            // Mais avec FormSubmit, le formulaire fonctionnera même sans JavaScript
+<script>
+    // Gestion améliorée du formulaire
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const form = this;
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.innerHTML;
+        
+        try {
+            // Afficher le chargement
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
             
-            // Afficher un message de confirmation
-            document.getElementById('alertSuccess').style.display = 'block';
-            this.reset();
+            // Envoyer les données
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
             
-            // Empêcher le rechargement de la page pour cet exemple
-            e.preventDefault();
+            if (response.ok) {
+                // Afficher le succès
+                document.getElementById('alertSuccess').style.display = 'block';
+                document.getElementById('alertError').style.display = 'none';
+                form.reset();
+            } else {
+                throw new Error('Erreur réseau');
+            }
+        } catch (error) {
+            // Afficher l'erreur
+            document.getElementById('alertError').style.display = 'block';
+            document.getElementById('alertSuccess').style.display = 'none';
+            console.error('Erreur:', error);
+        } finally {
+            // Réinitialiser le bouton
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
             
-            // En production, vous pouvez laisser le formulaire se soumettre normalement
-            // en retirant e.preventDefault();
-        });
-    </script>
+            // Redirection après 3 secondes (si _next est configuré)
+            setTimeout(() => {
+                const nextUrl = form.querySelector('input[name="_next"]').value;
+                if (nextUrl) window.location.href = nextUrl;
+            }, 3000);
+        }
+    });
+</script>
 </body>
     </html>
