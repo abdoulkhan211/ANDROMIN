@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANDROMIN - Tutoriels HTML en Vidéo</title>
+    <style>
+        :root {
+            --primary-orange: #FF6B35;
+            --secondary-blue: #004E89;
+            --accent-green: #00A896;
+            --dark: #1A1A1A;
+            --light: #F7F7F7;
+            --gradient: linear-gradient(135deg, var(--primary-orange), var(--secondary-blue));
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: var(--gradient);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo-icon {
+            color: var(--accent-green);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        nav a:hover {
+            color: var(--accent-green);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-green);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .hero {
+            padding: 5rem 0;
+            background: url('https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+            position: relative;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--primary-orange), var(--accent-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: var(--accent-green);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 168, 150, 0.3);
+        }
+        
+        /* Styles pour la galerie vidéo HTML */
+        .html-videos {
+            padding: 5rem 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: var(--secondary-blue);
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--dark);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .level-filter {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .level-btn {
+            padding: 0.6rem 1.5rem;
+            background: white;
+            border: 2px solid var(--secondary-blue);
+            color: var(--secondary-blue);
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .level-btn:hover, .level-btn.active {
+            background: var(--secondary-blue);
+            color: white;
+        }
+        
+        .search-bar {
+            text-align: center;
+            margin: 0 auto 3rem;
+            max-width: 600px;
+        }
+        
+        .search-bar input {
+            padding: 12px 20px;
+            width: 100%;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 50px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .search-bar input:focus {
+            border-color: var(--primary-orange);
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.2);
+        }
+        
+        .video-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 0 1rem;
+        }
+        
+        .video-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--primary-orange);
+        }
+        
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .video-frame {
+            width: 100%;
+            height: 200px;
+            border: none;
+            display: block;
+        }
+        
+        .video-info {
+            padding: 1.2rem;
+            background: white;
+        }
+        
+        .video-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-blue);
+        }
+        
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--primary-orange);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .video-duration {
+            background: rgba(255, 107, 53, 0.1);
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+        }
+        
+        .video-level {
+            font-weight: 600;
+        }
+        
+        .video-level.beginner {
+            color: var(--accent-green);
+        }
+        
+        .video-level.intermediate {
+            color: var(--secondary-blue);
+        }
+        
+        .video-level.advanced {
+            color: var(--primary-orange);
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+        
+        .page-btn {
+            padding: 0.5rem 1rem;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .page-btn:hover, .page-btn.active {
+            background: var(--secondary-blue);
+            color: white;
+            border-color: var(--secondary-blue);
+        }
+        
+        .contact {
+            padding: 5rem 0;
+            background: var(--gradient);
+            color: white;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0 1rem;
+            text-align: center;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .video-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <span class="logo-icon"><i class="fas fa-code"></i></span>
+                <span>ANDROMIN</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Accueil</a></li>
+                    <li><a href="#">Tutoriels</a></li>
+                    <li><a href="#">Vidéos</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="hero-content container">
+            <h1>Maîtrisez HTML5</h1>
+            <p>Apprenez le langage fondamental du web à travers notre collection complète de tutoriels vidéo. Des bases aux techniques avancées, devenez expert en HTML.</p>
+            <a href="#videos" class="btn">Commencer l'apprentissage</a>
+        </div>
+    </section>
+    
+    <section class="html-videos" id="videos">
+        <div class="container">
+            <h2 class="section-title">Tutoriels Vidéo HTML</h2>
+            <p class="section-subtitle">Découvrez notre sélection de 20 vidéos de qualité pour apprendre HTML5, du niveau débutant au niveau avancé.</p>
+            
+            <div class="level-filter">
+                <button class="level-btn active" data-level="all">Tous</button>
+                <button class="level-btn" data-level="beginner">Débutant</button>
+                <button class="level-btn" data-level="intermediate">Intermédiaire</button>
+                <button class="level-btn" data-level="advanced">Avancé</button>
+            </div>
+            
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Rechercher une vidéo HTML..." onkeyup="filterVideos()">
+            </div>
+            
+            <div class="video-container" id="videoContainer">
+                <!-- Vidéo 1 -->
+                <div class="video-card" data-title="HTML complet pour débutants" data-level="beginner" data-duration="2h30">
+                    <iframe class="video-frame" src="https://www.youtube.com/embed/qqoM6r21CDg" allowfullscreen></iframe>
+                    <div class="video-info">
+                        <h3 class="video-title">HTML complet pour débutants</h3>
+                        <div class="video-meta">
+                            <span class="video-duration">2h30</span>
+                            <span class="video-level beginner">Débutant</span>
+                        </div>
+                        <p>Tout ce que vous devez savoir pour bien commencer avec HTML5.</p>
+                    </div>
+                </div>
+                
+                <!-- Vidéo 2 -->
+                <div class="video-card" data-title="Les bases de HTML en 1 heure" data-level="beginner" data-duration="1h05">
+                    <iframe class="video-frame" src="https://www.youtube.com/embed/ysEN5RaKOlA" allowfullscreen></iframe>
+                    <div class="video-info">
+                        <h3 class="video-title">Les bases de HTML en 1 heure</h3>
+                        <div class="video-meta">
+                            <span class="video-duration">1h05</span>
+                            <span class="video-level beginner">Débutant</span>
+                        </div>
+                        <p>Apprenez les fondamentaux de HTML en seulement une heure.</p>
+                    </div>
+                </div>
+                
+                <!-- Vidéo 3 -->
+                <div class="video-card" data-title="HTML sémantique expliqué" data-level="intermediate" data-duration="45m">
+                    <iframe class="video-frame" src="https://www.youtube.com/embed/kGW8Al_cga4" allowfullscreen></iframe>
+                    <div class="video-info">
+                        <h3 class="video-title">HTML sémantique expliqué</h3>
+                        <div class="video-meta">
+                            <span class="video-duration">45m</span>
+                            <span class="video-level intermediate">Intermédiaire</span>
+                        </div>
+                        <p>Comprenez et utilisez correctement les balises sémantiques HTML5.</p>
+                    </div>
+                </div>
+                
+                <!-- Vidéo 4 -->
+                <div class="video-card" data-title="Formulaires HTML avancés" data-level="intermediate" data-duration="1h15">
+                    <iframe class="video-frame" src="https://www.youtube.com/embed/fNcJuPIZ2WE" allowfullscreen></iframe>
+                    <div class="video-info">
+                        <h3 class="video-title">Formulaires HTML avancés</h3>
+                        <div class="video-meta">
+                            <span class="video-duration">1h15</span>
+                            <span class="video-level intermediate">Intermédiaire</span>
+                        </div>
+                        <p>Maîtrisez tous les éléments de formulaires et leurs attributs.</p>
+                    </div>
+                </div>
+                
+                <!-- Vidéo 5 -->
+                <div class="video-card" data-title="HTML et accessibilité" data-level="advanced" data-duration="50m">
+                    <iframe class="video-frame" src="https://www.youtube.com/embed/20SHvU2PKsM" allowfullscreen></iframe>
+                    <div class="video-info">
+                        <h3 class="video-title">HTML et accessibilité</h3>
+                        <div class="video-meta">
+                            <span class="video-duration">50m</span>
+                            <span class="video-level advanced">Avancé</span>
+                        </div>
+                        <p>Rendez vos sites accessibles avec les bonnes pratiques HTML.</p>
+                    </div>
+                </div>
+                
+                <!-- Vidéo 6 -->
+                <div class="video-card" data-title="HTML5 Canvas - Introduction" data-level="intermediate" data-duration="1h20">
+                    <iframe class="video-frame" src="https://www.youtube.com/embed/yq2au9EfeRQ" allowfullscreen></iframe>
+                    <div class="video-info">
+                        <h3 class="video-title">HTML5 Canvas - Introduction</h3>
+                        <div class="video-meta">
+                            <span class="video-duration">1h20</span>
+                            <span class="video-level intermediate">Intermédiaire</span>
+                        </div>
+                        <p>Découvrez comment dessiner et animer avec l'élément Canvas.</p>
+                    </div>
+                </div>
+                
+                <!-- Vidéo 7 -->
+                <div class="video-card" data-title="Structures HTML complexes" data-level="advanced" data-duration="1h45">
+                    <iframe class="video-frame" src="https://www.youtube.com/embed/g6xn5hk9K8I" allowfullscreen></iframe>
+                    <div class="video-info">
+                        <h3 class="video-title">Structures HTML complexes</h3>
+                        <div class="video-meta">
+                            <span class="video-duration">1h45</span>
+                            <span class="video-level advanced">Avancé</span>
+                        </div>
+                        <p>Techniques pour créer des structures HTML avancées.</p>
+                    </div>
+                </div>
+                
+                <!-- Vidéo 8 -->
+                <div class="video-card" data-title="HTML et SEO - Les bonnes pratiques" data-level="intermediate" data-duration="55m">
+                    <iframe class="video-frame" src="https://www.youtube.com/embed/9YffrCViTVk" allowfullscreen></iframe>
+                    <div class="video-info">
+                        <h3 class="video-title">HTML et SEO - Les bonnes pratiques</h3>
+                        <div class="video-meta">
+                            <span class="video-duration">55m</span>
+                            <span class="video-level intermediate">Intermédiaire</span>
+                        </div>
+                        <p>Optimisez votre HTML pour le référencement naturel.</p>
+                    </div>
+                </div>
+                
+                <!-- Vidéo 9 -->
+                <div class="video-card" data-title="HTML pour enfants - Initiation" data-level="beginner" data-duration="40m">
+                    <iframe class="video-frame" src="https://www.youtube.com/embed/3JluqTojuME" allowfullscreen></iframe>
+                    <div class="video-info">
+                        <h3 class="video-title">HTML pour enfants - Initiation</h3>
+                        <div class="video-meta">
+                            <span class="video-duration">40m</span>
+                            <span class="video-level beginner">Débutant</span>
+                        </div>
+                        <p>Une introduction ludique à HTML pour les plus jeunes.</p>
+                    </div>
+                </div>
+                
+                <!-- Vidéo 10 -->
+                <div class="video-card" data-title="HTML5 APIs - Géolocalisation" data-level="advanced" data-duration="1h10">
+                    <iframe class="video-frame" src="https://www.youtube.com/embed/Z1ktxiqyiLA" allowfullscreen></iframe>
+                    <div class="video-info">
+                        <h3 class="video-title">HTML5 APIs - Géolocalisation</h3>
+                        <div class="video-meta">
+                            <span class="video-duration">1h10</span>
+                            <span class="video-level advanced">Avancé</span>
+                        </div>
+                        <p>Utilisez l'API de géolocalisation de HTML5.</p>
+                    </div>
+                </div>
+                
+                <!-- Vidéo 11 -->
+                <div class="video-card" data-title="HTML et CSS - Premiers pas" data-level="beginner" data-duration="1h30">
+                    <iframe class="video-frame" src="https://www.youtube.com/embed/8gNrZ4lAnAw" allowfullscreen></iframe>
+                    <div class="video-info">
+                        <h3 class="video-title">HTML et CSS - Premiers pas</h3>
+                        <div class="video-meta">
+                            <span class="video-duration">1h30</span>
+                            <span class="video-level beginner">Débutant</span>
+                        </div>
+                        <p>Créez votre première page web avec HTML et CSS.</p>
+                    </div>
+                </div>
+                
+                <!-- Vidéo 12 -->
+                <div class="video-card" data-title="HTML5 - Nouveautés importantes"par HTML5.</p>
+                    </div>
+                </div>
+                
+                <!-- Vidéo 13 -->
+                <div class="video-card" data-title="HTML - Bonnes pratiques 2025" data-level="intermediate" data-duration="45m">
+                    <iframe class="video-frame" src="https://www.youtube.com/embed/G7vrCpWbmDw" allowfullscreen></iframe>
+                    <div class="video-info">
+                        <h3 class="video-title">HTML - Bonnes pratiques 2025</h3>
+                        <div class="video-meta">
+                            <span class="video-duration">45m</span>
+                            <span class="video-level intermediate">Intermédiaire</span>
+                        </div>
+                        <p>Les standards actuels pour écrire du HTML propre et efficace.</p>
+                    </div>
+                </div>
+                
+                <!-- Vidéo 14 -->
+                <div class="video-card" data-title="HTML pour applications web" data-level="advanced" data-duration="2h">
+                    <iframe class="video-frame" src="https://www.youtube.com/embed/3dHNOWTI7H8" allowfullscreen></iframe>
+                    <div class="video-info">
+                        <h3 class="video-title">HTML pour applications web</h3>
+                        <div class="video-meta">
+                            <span class="video-duration">2h</span>
+                            <span class="video-level advanced">Avancé</span>
+                        </div>
+                        <p>Structures HTML optimisées pour les applications complexes.</p>
+                    </div>
+                </div>
+                
+                <!-- Vidéo 15 -->
+                <div class="video-card" data-title="HTML - Erreurs courantes" data-level="beginner" data-duration="35m">
+                    <iframe class="video-frame" src="https://www.youtube.com/embed/Qd_jJ1QJZQk" allowfullscreen></iframe>
+                    <div class="video-info">
+                        <h3 class="video-title">HTML - Erreurs courantes</h3>
+                        <div class="video-meta">
+                            <span class="video-duration">35m</span>
+                            <span class="video-level beginner">Débutant</span>
+                        </div>
+                        <p>Les 10 erreurs les plus fréquentes et comment les éviter.</p>
+                    </div>
+                </div>
+                
+                <!-- Vidéo 16 -->
+                <div class="video-card" data-title="HTML et JavaScript - Intégration" data-level="intermediate" data-duration="1h15">
+                    <iframe class="video-frame" src="https://www.youtube.com/embed/3b7FyIxWW94" allowfullscreen></iframe>
+                    <div class="video-info">
+                        <h3 class="video-title">HTML et JavaScript - Intégration</h3>
+                        <div class="video-meta">
+                            <span class="video-duration">1h15</span>
+                            <span class="video-level intermediate">Intermédiaire</span>
+                        </div>
+                        <p>Comment bien intégrer JavaScript dans vos pages HTML.</p>
+                    </div>
+                </div>
+                
+                <!-- Vidéo 17 -->
+                <div class="video-card" data-title="HTML5 - Vidéo et Audio" data-level="intermediate" data-duration="50m">
+                    <iframe class="video-frame" src="https://www.youtube.com/embed/02JtDUW7W1w" allowfullscreen></iframe>
+                    <div class="video-info">
+                        <h3 class="video-title">HTML5 - Vidéo et Audio</h3>
+                        <div class="video-meta">
+                            <span class="video-duration">50m</span>
+                            <span class="video-level intermediate">Intermédiaire</span>
+                        </div>
+                        <p>Intégrez et contrôlez des médias avec les balises HTML5.</p>
+                    </div>
+                </div>
+                
+                <!-- Vidéo 18 -->
+                <div class="video-card" data-title="HTML - Templates avancés" data-level="advanced" data-duration="1h30">
+                    <iframe class="video-frame" src="https://www.youtube.com/embed/7UIBIaEZVWw" allowfullscreen></iframe>
+                    <div class="video-info">
+                        <h3 class="video-title">HTML - Templates avancés</h3>
+                        <div class="video-meta">
+                            <span class="video-duration">1h30</span>
+                            <span class="video-level advanced">Avancé</span>
+                        </div>
+                        <p>Créez des templates HTML réutilisables et modulaires.</p>
+                    </div>
+                </div>
+                
+                <!-- Vidéo 19 -->
+                <div class="video-card" data-title="HTML pour emails" data-level="advanced" data-duration="1h10">
+                    <iframe class="video-frame" src="https://www.youtube.com/embed/lK0Q-6l6j5U" allowfullscreen></iframe>
+                    <div class="video-info">
+                        <h3 class="video-title">HTML pour emails</h3>
+                        <div class="video-meta">
+                            <span class="video-duration">1h10</span>
+                            <span class="video-level advanced">Avancé</span>
+                        </div>
+                        <p>Techniques spécifiques pour coder des emails en HTML.</p>
+                    </div>
+                </div>
+                
+                <!-- Vidéo 20 -->
+                <div class="video-card" data-title="HTML - Projet complet" data-level="intermediate" data-duration="2h45">
+                    <iframe class="video-frame" src="https://www.youtube.com/embed/PK_tXGM6q2k" allowfullscreen></iframe>
+                    <div class="video-info">
+                        <h3 class="video-title">HTML - Projet complet</h3>
+                        <div class="video-meta">
+                            <span class="video-duration">2h45</span>
+                            <span class="video-level intermediate">Intermédiaire</span>
+                        </div>
+                        <p>Créez un site complet en utilisant toutes les fonctionnalités HTML.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pagination">
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn">Suivant</button>
+            </div>
+        </div>
+    </section>
+    
+    <section class="contact">
+        <div class="container">
+            <h2 class="section-title">Besoin d'aide avec HTML ?</h2>
+            <p class="section-subtitle">Contactez notre équipe pour des questions spécifiques ou des tutoriels personnalisés.</p>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="#" class="btn">Nous contacter</a>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="logo" style="justify-content: center; margin-bottom: 1.5rem;">
+                <span class="logo-icon"><i class="fas fa-code"></i></span>
+                <span>ANDROMIN</span>
+            </div>
+            
+            <div style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem;">
+                <a href="#" style="color: white; text-decoration: none;">Accueil</a>
+                <a href="#" style="color: white; text-decoration: none;">Tutoriels</a>
+                <a href="#" style="color: white; text-decoration: none;">Vidéos</a>
+                <a href="#" style="color: white; text-decoration: none;">Blog</a>
+                <a href="#" style="color: white; text-decoration: none;">Contact</a>
+            </div>
+            
+            <div style="display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1.5rem;">
+                <a href="#" style="color: white; font-size: 1.5rem;"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" style="color: white; font-size: 1.5rem;"><i class="fab fa-twitter"></i></a>
+                <a href="#" style="color: white; font-size: 1.5rem;"><i class="fab fa-youtube"></i></a>
+                <a href="#" style="color: white; font-size: 1.5rem;"><i class="fab fa-github"></i></a>
+            </div>
+            
+            <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; text-align: center;">
+                <p>&copy; 2025 ANDROMIN - Tahoua, Niger. Tous droits réservés.</p>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">+227 86 50 86 82 / +227 93 43 91 11</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Filtre de recherche
+        function filterVideos() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const videos = document.querySelectorAll('.video-card');
+            const activeLevel = document.querySelector('.level-btn.active').dataset.level;
+
+            videos.forEach(video => {
+                const title = video.getAttribute('data-title').toLowerCase();
+                const level = video.getAttribute('data-level');
+                
+                const matchesSearch = title.includes(input);
+                const matchesLevel = activeLevel === 'all' || level === activeLevel;
+                
+                if (matchesSearch && matchesLevel) {
+                    video.style.display = 'block';
+                } else {
+                    video.style.display = 'none';
+                }
+            });
+        }
+
+        // Filtre par niveau
+        document.querySelectorAll('.level-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                filterVideos();
+            });
+        });
+
+        // Pagination
+        document.querySelectorAll('.page-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                // Ici vous pourriez ajouter une logique pour charger d'autres vidéos
+            });
+        });
+    </script>
+</body>
+                                                                   </html> 
