@@ -442,20 +442,18 @@
                     </div>
                 </div>
                 
-                        
-
-
-<div class="contact-form">
+                <div class="contact-form">
     <h2>Contactez ANDROMIN</h2>
     
     <div id="formMessage" style="display:none; margin:1rem 0; padding:1rem; border-radius:5px;"></div>
     
-    <form id="androminForm" action="https://formsubmit.co/andromintv@gmail.com" method="POST">
-        <!-- Configuration FormSubmit améliorée -->
+    <form id="androminForm" action="https://formsubmit.co/el/mehipe" method="POST">
+        <!-- Configuration testée -->
+        <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_autoresponse" value="Merci pour votre message! Nous vous contacterons bientôt.">
+        <input type="hidden" name="_subject" value="Nouveau message ANDROMIN">
         <input type="hidden" name="_cc" value="andromintv@gmail.com">
-        <input type="hidden" name="_subject" value="Nouveau Contact - ANDROMIN">
+        <input type="hidden" name="_replyto" value="%email%">
         
         <!-- Champs obligatoires -->
         <div class="form-group">
@@ -468,7 +466,6 @@
             <input type="email" name="Email" class="form-control" required>
         </div>
         
-        <!-- Champs supplémentaires -->
         <div class="form-group">
             <label>Téléphone</label>
             <input type="tel" name="Téléphone" class="form-control">
@@ -480,7 +477,6 @@
                 <option value="">-- Sélectionnez --</option>
                 <option value="Support">Support Technique</option>
                 <option value="Cours">Demande de Cours</option>
-                <option value="Partnership">Partenariat</option>
             </select>
         </div>
         
@@ -490,17 +486,21 @@
         </div>
         
         <button type="submit" class="btn">
-            <i class="fas fa-paper-plane"></i> Envoyer Message
+            <i class="fas fa-paper-plane"></i> Envoyer
         </button>
     </form>
 </div>
 
 <script>
-// Script garanti
 document.getElementById('androminForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const form = e.target;
-    const messageDiv = document.getElementById('formMessage');
+    const btn = form.querySelector('button[type="submit"]');
+    const originalText = btn.innerHTML;
+    
+    // Afficher le chargement
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi...';
     
     fetch(form.action, {
         method: 'POST',
@@ -508,24 +508,28 @@ document.getElementById('androminForm').addEventListener('submit', function(e) {
     })
     .then(response => {
         if(response.ok) {
-            showMessage('✔ Message envoyé avec succès!', 'success');
+            showAlert('Message envoyé avec succès!', 'success');
             form.reset();
         } else {
             throw new Error();
         }
     })
     .catch(() => {
-        showMessage('✖ Erreur d\'envoi. Contactez-nous directement par email.', 'error');
+        showAlert('Erreur: Veuillez nous contacter directement', 'error');
+    })
+    .finally(() => {
+        btn.disabled = false;
+        btn.innerHTML = originalText;
     });
 });
 
-function showMessage(text, type) {
-    const div = document.getElementById('formMessage');
-    div.textContent = text;
-    div.style.display = 'block';
-    div.style.background = type === 'success' ? '#d4edda' : '#f8d7da';
-    div.style.color = type === 'success' ? '#155724' : '#721c24';
-    setTimeout(() => div.style.display = 'none', 5000);
+function showAlert(message, type) {
+    const alert = document.getElementById('formMessage');
+    alert.textContent = message;
+    alert.style.display = 'block';
+    alert.style.background = type === 'success' ? '#d4edda' : '#f8d7da';
+    alert.style.color = type === 'success' ? '#155724' : '#721c24';
+    setTimeout(() => alert.style.display = 'none', 5000);
 }
 </script>
 </body>
