@@ -541,6 +541,7 @@
                 document.getElementById('alertSuccess').style.display = 'block';
                 document.getElementById('alertError').style.display = 'none';
                 form.reset();
+</script>
 <!-- Formulaire de contact fonctionnel -->
 <div class="contact-form">
     <h2>Envoyez-nous un message</h2>
@@ -600,50 +601,87 @@ document.getElementById('androminContactForm').addEventListener('submit', async 
     e.preventDefault();
     const form = e.target;
     const submitBtn = form.querySelector('button[type="submit"]');
-    const alertBox = document.getElementById('formAlert');
+<div class="contact-form">
+    <h2>Contactez ANDROMIN</h2>
     
-    // Désactiver le bouton pendant l'envoi
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
+    <div id="formMessage" style="display:none; margin:1rem 0; padding:1rem; border-radius:5px;"></div>
     
-    try {
-        // Envoyer les données via FormSubmit
-        const response = await fetch(form.action, {
-            method: 'POST',
-            body: new FormData(form),
-            headers: {
-                'Accept': 'application/json'
-            }
-        });
+    <form id="androminForm" action="https://formsubmit.co/andromintv@gmail.com" method="POST">
+        <!-- Configuration FormSubmit améliorée -->
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_autoresponse" value="Merci pour votre message! Nous vous contacterons bientôt.">
+        <input type="hidden" name="_cc" value="andromintv@gmail.com">
+        <input type="hidden" name="_subject" value="Nouveau Contact - ANDROMIN">
         
-        // Afficher le résultat
-        if (response.ok) {
-            showAlert('Message envoyé avec succès! Nous vous répondrons bientôt.', 'success');
+        <!-- Champs obligatoires -->
+        <div class="form-group">
+            <label>Nom Complet*</label>
+            <input type="text" name="Nom" class="form-control" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Email*</label>
+            <input type="email" name="Email" class="form-control" required>
+        </div>
+        
+        <!-- Champs supplémentaires -->
+        <div class="form-group">
+            <label>Téléphone</label>
+            <input type="tel" name="Téléphone" class="form-control">
+        </div>
+        
+        <div class="form-group">
+            <label>Sujet*</label>
+            <select name="Sujet" class="form-control" required>
+                <option value="">-- Sélectionnez --</option>
+                <option value="Support">Support Technique</option>
+                <option value="Cours">Demande de Cours</option>
+                <option value="Partnership">Partenariat</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label>Message*</label>
+            <textarea name="Message" class="form-control" rows="5" required></textarea>
+        </div>
+        
+        <button type="submit" class="btn">
+            <i class="fas fa-paper-plane"></i> Envoyer Message
+        </button>
+    </form>
+</div>
+
+<script>
+// Script garanti
+document.getElementById('androminForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const messageDiv = document.getElementById('formMessage');
+    
+    fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+    })
+    .then(response => {
+        if(response.ok) {
+            showMessage('✔ Message envoyé avec succès!', 'success');
             form.reset();
         } else {
-            throw new Error('Erreur lors de l\'envoi');
+            throw new Error();
         }
-    } catch (error) {
-        console.error('Erreur:', error);
-        showAlert('Une erreur est survenue. Veuillez réessayer ou nous contacter directement par email.', 'error');
-    } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Envoyer';
-    }
+    })
+    .catch(() => {
+        showMessage('✖ Erreur d\'envoi. Contactez-nous directement par email.', 'error');
+    });
 });
 
-function showAlert(message, type) {
-    const alertBox = document.getElementById('formAlert');
-    alertBox.textContent = message;
-    alertBox.style.display = 'block';
-    alertBox.style.background = type === 'success' ? '#d4edda' : '#f8d7da';
-    alertBox.style.color = type === 'success' ? '#155724' : '#721c24';
-    alertBox.style.border = type === 'success' ? '1px solid #c3e6cb' : '1px solid #f5c6cb';
-    
-    // Disparaître après 5 secondes
-    setTimeout(() => {
-        alertBox.style.display = 'none';
-    }, 5000);
+function showMessage(text, type) {
+    const div = document.getElementById('formMessage');
+    div.textContent = text;
+    div.style.display = 'block';
+    div.style.background = type === 'success' ? '#d4edda' : '#f8d7da';
+    div.style.color = type === 'success' ? '#155724' : '#721c24';
+    setTimeout(() => div.style.display = 'none', 5000);
 }
 </script>
 </body>
