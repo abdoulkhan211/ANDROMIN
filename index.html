@@ -6,6 +6,107 @@
     <title>ANDROMIN - Tutoriels HTML/CSS</title>
     <link rel="shortcut icon" href="log.png">
     <style>
+ /* Style de base */
+        :root {
+            --primary: #FF6B35;
+            --secondary: #004E89;
+            --accent: #00A896;
+            --dark: #1A1A1A;
+            --light: #F7F7F7;
+        }
+        
+        .notification-system {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            max-width: 350px;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        .notification {
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            transform: translateX(150%);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            background: white;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification-icon {
+            margin-right: 15px;
+            font-size: 24px;
+            color: var(--accent);
+        }
+        
+        .notification-content {
+            flex: 1;
+        }
+        
+        .notification-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        .notification-message {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.4;
+        }
+        
+        .notification-close {
+            margin-left: 10px;
+            cursor: pointer;
+            color: #999;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+        
+        .notification-close:hover {
+            color: var(--primary);
+        }
+        
+        /* Types de notifications */
+        .notification.success {
+            border-left-color: #00A896;
+        }
+        .notification.success .notification-icon {
+            color: #00A896;
+        }
+        
+        .notification.warning {
+            border-left-color: #FF9F1C;
+        }
+        .notification.warning .notification-icon {
+            color: #FF9F1C;
+        }
+        
+        .notification.error {
+            border-left-color: #E71D36;
+        }
+        .notification.error .notification-icon {
+            color: #E71D36;
+        }
+        
+        .notification.premium {
+            background: linear-gradient(135deg, #004E89, #00A896);
+            color: white;
+        }
+        .notification.premium .notification-title,
+        .notification.premium .notification-message,
+        .notification.premium .notification-close {
+            color: white;
+                }
+        
         :root {
             --primary-orange: #FF6B35;
             --secondary-blue: #004E89;
@@ -531,5 +632,99 @@
             </div>
         </div>
     </footer>
+<script>
+        // Fonction pour afficher les notifications
+        function showNotification(options) {
+            const system = document.getElementById('notificationSystem');
+            const notification = document.createElement('div');
+            
+            // Configuration par défaut
+            const defaults = {
+                type: 'info',
+                title: 'Notification',
+                message: 'Nouveau message',
+                icon: 'fas fa-info-circle',
+                timeout: 5000,
+                closeable: true
+            };
+            
+            const config = {...defaults, ...options};
+            
+            // Création de la notification
+            notification.className = `notification ${config.type}`;
+            notification.innerHTML = `
+                <div class="notification-icon">
+                    <i class="${config.icon}"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">${config.title}</div>
+                    <div class="notification-message">${config.message}</div>
+                </div>
+                ${config.closeable ? `<div class="notification-close">&times;</div>` : ''}
+            `;
+            
+            // Ajout au système
+            system.appendChild(notification);
+            
+            // Animation d'entrée
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+            
+            // Fermeture automatique
+            if (config.timeout > 0) {
+                setTimeout(() => {
+                    closeNotification(notification);
+                }, config.timeout);
+            }
+            
+            // Fermeture manuelle
+            if (config.closeable) {
+                notification.querySelector('.notification-close').addEventListener('click', () => {
+                    closeNotification(notification);
+                });
+            }
+            
+            function closeNotification(notification) {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    notification.remove();
+                }, 500);
+            }
+        }
+        
+        // Exemples de notifications (à adapter)
+        document.addEventListener('DOMContentLoaded', function() {
+            // Bienvenue (apparaît après 2s)
+            setTimeout(() => {
+                showNotification({
+                    type: 'success',
+                    title: 'Bienvenue sur ANDROMIN !',
+                    message: 'Découvrez nos nouveaux tutoriels HTML/CSS spécial débutants.',
+                    icon: 'fas fa-rocket'
+                });
+            }, 2000);
+            
+            // Notification de mise à jour (après 10s)
+            setTimeout(() => {
+                showNotification({
+                    type: 'premium',
+                    title: 'Nouveauté !',
+                    message: 'Découvrez notre formation CSS avancé disponible maintenant.',
+                    icon: 'fas fa-star',
+                    timeout: 8000
+                });
+            }, 10000);
+        });
+        
+        // Pour déclencher depuis d'autres événements :
+        // showNotification({
+        //     type: 'warning',
+        //     title: 'Maintenance prévue',
+        //     message: 'Le site sera indisponible demain de 2h à 3h pour maintenance.',
+        //     icon: 'fas fa-tools'
+        // });
+</script>
+    
 </body>
   </html>
