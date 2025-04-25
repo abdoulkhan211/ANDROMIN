@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | ANDROMIN - Tutoriels HTML/CSS</title>
+    <style>
+        :root {
+            --primary: #FF6B35;
+            --secondary: #004E89;
+            --accent: #00A896;
+            --dark: #1A1A1A;
+            --light: #F7F7F7;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: #f8fafc;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .blog-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .blog-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .blog-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .blog-card:hover .blog-image img {
+            transform: scale(1.05);
+        }
+        
+        .blog-content {
+            padding: 1.5rem;
+        }
+        
+        .blog-category {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: rgba(0, 168, 150, 0.1);
+            color: var(--accent);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+        
+        .html-category {
+            background: rgba(255, 107, 53, 0.1);
+            color: var(--primary);
+        }
+        
+        .css-category {
+            background: rgba(0, 78, 137, 0.1);
+            color: var(--secondary);
+        }
+        
+        .blog-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+        }
+        
+        .blog-excerpt {
+            color: #555;
+            margin-bottom: 1.2rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #777;
+        }
+        
+        .blog-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 0.6rem;
+        }
+        
+        .read-time {
+            display: flex;
+            align-items: center;
+        }
+        
+        .read-time i {
+            margin-right: 0.3rem;
+        }
+        
+        .blog-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .blog-date {
+            font-size: 0.8rem;
+            color: #999;
+        }
+        
+        .read-more {
+            color: var(--accent);
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .read-more:hover {
+            color: var(--secondary);
+        }
+        
+        .sidebar {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .sidebar-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+        }
+        
+        .categories-list {
+            list-style: none;
+        }
+        
+        .categories-list li {
+            margin-bottom: 0.6rem;
+        }
+        
+        .categories-list a {
+            color: #555;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .categories-list a:hover {
+            color: var(--primary);
+        }
+        
+        .categories-list a i {
+            margin-right: 0.5rem;
+            color: var(--accent);
+        }
+        
+        .popular-posts .post {
+            display: flex;
+            margin-bottom: 1rem;
+        }
+        
+        .popular-posts .post-image {
+            width: 80px;
+            height: 60px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-right: 1rem;
+        }
+        
+        .popular-posts .post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .popular-posts .post-title {
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .newsletter-form {
+            margin-top: 2rem;
+        }
+        
+        .newsletter-form input {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .newsletter-form button {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .newsletter-form button:hover {
+            background: var(--secondary);
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 3rem 0;
+            gap: 0.5rem;
+        }
+        
+        .page-btn {
+            padding: 0.6rem 1rem;
+            border-radius: 5px;
+            background: white;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .page-btn:hover, .page-btn.active {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header class="blog-header">
+        <div class="container">
+            <h1>Le Blog ANDROMIN</h1>
+            <p>Conseils, tutoriels et actualités sur le développement web</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="main-content">
+            <div>
+                <div class="blog-grid">
+                    <!-- Article 1 -->
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="HTML5">
+                        </div>
+                        <div class="blog-content">
+                            <span class="blog-category html-category">HTML5</span>
+                            <h2 class="blog-title">Les nouvelles balises sémantiques en HTML5</h2>
+                            <p class="blog-excerpt">Découvrez comment utiliser les balises sémantiques comme header, footer, article et section pour améliorer la structure et le référencement de vos pages web.</p>
+                            <div class="blog-meta">
+                                <div class="blog-author">
+                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Auteur" class="author-avatar">
+                                    <span>Jean Dupont</span>
+                                </div>
+                                <div class="read-time">
+                                    <i class="far fa-clock"></i> 5 min
+                                </div>
+                            </div>
+                            <div class="blog-footer">
+                                <span class="blog-date">15 juin 2023</span>
+                                <a href="article-html5.html" class="read-more">Lire l'article →</a>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Article 2 -->
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1621839673705-6617adf9e890?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="CSS Grid">
+                        </div>
+                        <div class="blog-content">
+                            <span class="blog-category css-category">CSS3</span>
+                            <h2 class="blog-title">Maîtriser CSS Grid en 2023</h2>
+                            <p class="blog-excerpt">Apprenez à créer des layouts complexes avec CSS Grid. Ce guide complet vous montrera des exemples pratiques pour vos projets web modernes.</p>
+                            <div class="blog-meta">
+                                <div class="blog-author">
+                                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Auteur" class="author-avatar">
+                                    <span>Marie Martin</span>
+                                </div>
+                                <div class="read-time">
+                                    <i class="far fa-clock"></i> 8 min
+                                </div>
+                            </div>
+                            <div class="blog-footer">
+                                <span class="blog-date">2 juin 2023</span>
+                                <a href="article-css-grid.html" class="read-more">Lire l'article →</a>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Article 3 -->
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Responsive Design">
+                        </div>
+                        <div class="blog-content">
+                            <span class="blog-category">Conseils</span>
+                            <h2 class="blog-title">10 astuces pour un design responsive parfait</h2>
+                            <p class="blog-excerpt">Découvrez nos meilleures astuces pour créer des sites qui s'adaptent parfaitement à tous les écrans, du mobile au desktop.</p>
+                            <div class="blog-meta">
+                                <div class="blog-author">
+                                    <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Auteur" class="author-avatar">
+                                    <span>Thomas Leroy</span>
+                                </div>
+                                <div class="read-time">
+                                    <i class="far fa-clock"></i> 6 min
+                                </div>
+                            </div>
+                            <div class="blog-footer">
+                                <span class="blog-date">20 mai 2023</span>
+                                <a href="article-responsive.html" class="read-more">Lire l'article →</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                
+                <div class="pagination">
+                    <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+            
+            <aside class="sidebar">
+                <div class="sidebar-widget">
+                    <h3 class="sidebar-title">Catégories</h3>
+                    <ul class="categories-list">
+                        <li><a href="#"><i class="fas fa-code"></i> HTML</a></li>
+                        <li><a href="#"><i class="fab fa-css3-alt"></i> CSS</a></li>
+                        <li><a href="#"><i class="fas fa-mobile-alt"></i> Responsive</a></li>
+                        <li><a href="#"><i class="fas fa-lightbulb"></i> Astuces</a></li>
+                        <li><a href="#"><i class="fas fa-newspaper"></i> Actualités</a></li>
+                    </ul>
+                </div>
+                
+                <div class="sidebar-widget">
+                    <h3 class="sidebar-title">Articles populaires</h3>
+                    <div class="popular-posts">
+                        <div class="post">
+                            <div class="post-image">
+                                <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="HTML5">
+                            </div>
+                            <div>
+                                <h4 class="post-title">Les nouvelles balises HTML5</h4>
+                                <span class="blog-date">15 juin 2023</span>
+                            </div>
+                        </div>
+                        <div class="post">
+                            <div class="post-image">
+                                <img src="https://images.unsplash.com/photo-1621839673705-6617adf9e890?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="CSS Grid">
+                            </div>
+                            <div>
+                                <h4 class="post-title">Maîtriser CSS Grid</h4>
+                                <span class="blog-date">2 juin 2023</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sidebar-widget newsletter-form">
+                    <h3 class="sidebar-title">Newsletter</h3>
+                    <p>Recevez nos derniers articles par email</p>
+                    <form>
+                        <input type="text" placeholder="Votre nom">
+                        <input type="email" placeholder="Votre email">
+                        <button type="submit">S'abonner</button>
+                    </form>
+                </div>
+            </aside>
+        </div>
+    </div>
+    
+    <script>
+        // Système de lecture des articles (simulé)
+        document.querySelectorAll('.read-more').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Enregistrer la lecture dans localStorage
+                const articleId = this.getAttribute('href').replace('.html', '');
+                localStorage.setItem('lastRead', articleId);
+                
+                // Ici vous pourriez envoyer une statistique à votre backend
+                console.log(`Article lu: ${articleId}`);
+            });
+        });
+        
+        // Pagination
+        const pageBtns = document.querySelectorAll('.page-btn');
+        pageBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if(!btn.classList.contains('active')) {
+                    document.querySelector('.page-btn.active').classList.remove('active');
+                    btn.classList.add('active');
+                    // Ici vous chargeriez les articles de la page correspondante
+                }
+            });
+        });
+    </script>
+</body>
+      </html>
