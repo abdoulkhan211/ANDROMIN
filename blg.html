@@ -7,30 +7,62 @@
     <style>
         :root {
             --primary: #FF6B35;
+            --primary-light: rgba(255, 107, 53, 0.1);
             --secondary: #004E89;
+            --secondary-light: rgba(0, 78, 137, 0.1);
             --accent: #00A896;
+            --accent-light: rgba(0, 168, 150, 0.1);
             --dark: #1A1A1A;
             --light: #F7F7F7;
+            --gray: #6B7280;
+            --light-gray: #F3F4F6;
         }
         
         body {
             font-family: 'Segoe UI', system-ui, sans-serif;
-            background-color: #f8fafc;
+            background-color: var(--light-gray);
             color: var(--dark);
             line-height: 1.6;
+            margin: 0;
         }
         
         .blog-header {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            padding: 4rem 0;
+            padding: 5rem 0 4rem;
             text-align: center;
             margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .blog-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') center/cover;
+            opacity: 0.15;
         }
         
         .container {
             width: 90%;
             max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .blog-title {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        
+        .blog-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
             margin: 0 auto;
         }
         
@@ -43,27 +75,30 @@
         
         .blog-card {
             background: white;
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.08);
         }
         
         .blog-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-color: rgba(0,0,0,0.12);
         }
         
         .blog-image {
-            height: 200px;
+            height: 220px;
             overflow: hidden;
+            position: relative;
         }
         
         .blog-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s;
+            transition: transform 0.5s ease;
         }
         
         .blog-card:hover .blog-image img {
@@ -71,39 +106,41 @@
         }
         
         .blog-content {
-            padding: 1.5rem;
+            padding: 1.8rem;
         }
         
         .blog-category {
             display: inline-block;
-            padding: 0.3rem 0.8rem;
-            background: rgba(0, 168, 150, 0.1);
+            padding: 0.4rem 1rem;
+            background: var(--accent-light);
             color: var(--accent);
             border-radius: 50px;
             font-size: 0.8rem;
             font-weight: 600;
-            margin-bottom: 0.8rem;
+            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
         }
         
         .html-category {
-            background: rgba(255, 107, 53, 0.1);
+            background: var(--primary-light);
             color: var(--primary);
         }
         
         .css-category {
-            background: rgba(0, 78, 137, 0.1);
+            background: var(--secondary-light);
             color: var(--secondary);
         }
         
-        .blog-title {
-            font-size: 1.4rem;
-            margin-bottom: 0.8rem;
+        .blog-card-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
             line-height: 1.4;
+            color: var(--dark);
         }
         
         .blog-excerpt {
-            color: #555;
-            margin-bottom: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 1.5rem;
             display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
@@ -115,7 +152,8 @@
             justify-content: space-between;
             align-items: center;
             font-size: 0.9rem;
-            color: #777;
+            color: var(--gray);
+            margin-bottom: 1rem;
         }
         
         .blog-author {
@@ -124,10 +162,12 @@
         }
         
         .author-avatar {
-            width: 30px;
-            height: 30px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
-            margin-right: 0.6rem;
+            margin-right: 0.8rem;
+            object-fit: cover;
+            border: 2px solid var(--light-gray);
         }
         
         .read-time {
@@ -136,21 +176,21 @@
         }
         
         .read-time i {
-            margin-right: 0.3rem;
+            margin-right: 0.4rem;
+            color: var(--accent);
         }
         
         .blog-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 1.5rem;
             padding-top: 1rem;
-            border-top: 1px solid #eee;
+            border-top: 1px solid var(--light-gray);
         }
         
         .blog-date {
-            font-size: 0.8rem;
-            color: #999;
+            font-size: 0.85rem;
+            color: var(--gray);
         }
         
         .read-more {
@@ -158,62 +198,82 @@
             font-weight: 600;
             text-decoration: none;
             transition: color 0.3s;
+            display: flex;
+            align-items: center;
         }
         
         .read-more:hover {
             color: var(--secondary);
         }
         
+        .read-more i {
+            margin-left: 0.5rem;
+            transition: transform 0.3s;
+        }
+        
+        .read-more:hover i {
+            transform: translateX(3px);
+        }
+        
         .sidebar {
             background: white;
-            border-radius: 10px;
-            padding: 1.5rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.08);
         }
         
         .sidebar-title {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem;
             border-bottom: 2px solid var(--accent);
+            color: var(--dark);
         }
         
         .categories-list {
             list-style: none;
+            padding: 0;
         }
         
         .categories-list li {
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.8rem;
         }
         
         .categories-list a {
-            color: #555;
+            color: var(--gray);
             text-decoration: none;
-            transition: color 0.3s;
+            transition: all 0.3s;
             display: flex;
             align-items: center;
+            padding: 0.5rem 0;
         }
         
         .categories-list a:hover {
             color: var(--primary);
+            transform: translateX(5px);
         }
         
         .categories-list a i {
-            margin-right: 0.5rem;
+            margin-right: 0.8rem;
             color: var(--accent);
+            width: 20px;
+            text-align: center;
         }
         
         .popular-posts .post {
             display: flex;
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
+            align-items: center;
         }
         
         .popular-posts .post-image {
             width: 80px;
             height: 60px;
-            border-radius: 5px;
+            border-radius: 8px;
             overflow: hidden;
             margin-right: 1rem;
+            flex-shrink: 0;
         }
         
         .popular-posts .post-image img {
@@ -223,58 +283,100 @@
         }
         
         .popular-posts .post-title {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             line-height: 1.4;
+            color: var(--dark);
+            margin-bottom: 0.3rem;
+        }
+        
+        .popular-posts .post-date {
+            font-size: 0.8rem;
+            color: var(--gray);
         }
         
         .newsletter-form {
-            margin-top: 2rem;
+            margin-top: 2.5rem;
         }
         
-        .newsletter-form input {
+        .newsletter-form p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--dark);
+        }
+        
+        .form-control {
             width: 100%;
-            padding: 0.8rem;
-            margin-bottom: 0.8rem;
+            padding: 0.8rem 1.2rem;
             border: 1px solid #ddd;
-            border-radius: 5px;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: var(--light-gray);
         }
         
-        .newsletter-form button {
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(0, 168, 150, 0.2);
+            background: white;
+        }
+        
+        .newsletter-btn {
             width: 100%;
-            padding: 0.8rem;
+            padding: 1rem;
             background: var(--accent);
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s;
+            margin-top: 1rem;
+            font-size: 1rem;
         }
         
-        .newsletter-form button:hover {
+        .newsletter-btn:hover {
             background: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        .newsletter-btn i {
+            margin-left: 0.5rem;
         }
         
         .main-content {
             display: grid;
             grid-template-columns: 2fr 1fr;
-            gap: 2rem;
+            gap: 2.5rem;
+            margin-bottom: 4rem;
         }
         
         .pagination {
             display: flex;
             justify-content: center;
-            margin: 3rem 0;
-            gap: 0.5rem;
+            margin: 4rem 0;
+            gap: 0.8rem;
         }
         
         .page-btn {
-            padding: 0.6rem 1rem;
-            border-radius: 5px;
+            padding: 0.7rem 1.2rem;
+            border-radius: 8px;
             background: white;
             border: 1px solid #ddd;
             cursor: pointer;
             transition: all 0.3s;
+            font-weight: 500;
+            color: var(--gray);
         }
         
         .page-btn:hover, .page-btn.active {
@@ -283,8 +385,52 @@
             border-color: var(--secondary);
         }
         
+        .page-btn.active {
+            transform: scale(1.05);
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--accent);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+        
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .notification i {
+            margin-right: 0.8rem;
+            font-size: 1.2rem;
+        }
+        
         @media (max-width: 768px) {
             .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .blog-header {
+                padding: 3rem 0;
+            }
+            
+            .blog-title {
+                font-size: 2.2rem;
+            }
+            
+            .blog-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -294,8 +440,8 @@
 <body>
     <header class="blog-header">
         <div class="container">
-            <h1>Le Blog ANDROMIN</h1>
-            <p>Conseils, tutoriels et actualités sur le développement web</p>
+            <h1 class="blog-title">Le Blog ANDROMIN</h1>
+            <p class="blog-subtitle">Conseils, tutoriels et actualités sur le développement web</p>
         </div>
     </header>
     
@@ -310,7 +456,7 @@
                         </div>
                         <div class="blog-content">
                             <span class="blog-category html-category">HTML5</span>
-                            <h2 class="blog-title">Les nouvelles balises sémantiques en HTML5</h2>
+                            <h2 class="blog-card-title">Les nouvelles balises sémantiques en HTML5</h2>
                             <p class="blog-excerpt">Découvrez comment utiliser les balises sémantiques comme header, footer, article et section pour améliorer la structure et le référencement de vos pages web.</p>
                             <div class="blog-meta">
                                 <div class="blog-author">
@@ -323,7 +469,7 @@
                             </div>
                             <div class="blog-footer">
                                 <span class="blog-date">15 juin 2023</span>
-                                <a href="article-html5.html" class="read-more">Lire l'article →</a>
+                                <a href="article-html5.html" class="read-more">Lire l'article <i class="fas fa-arrow-right"></i></a>
                             </div>
                         </div>
                     </article>
@@ -335,7 +481,7 @@
                         </div>
                         <div class="blog-content">
                             <span class="blog-category css-category">CSS3</span>
-                            <h2 class="blog-title">Maîtriser CSS Grid en 2023</h2>
+                            <h2 class="blog-card-title">Maîtriser CSS Grid en 2023</h2>
                             <p class="blog-excerpt">Apprenez à créer des layouts complexes avec CSS Grid. Ce guide complet vous montrera des exemples pratiques pour vos projets web modernes.</p>
                             <div class="blog-meta">
                                 <div class="blog-author">
@@ -348,7 +494,7 @@
                             </div>
                             <div class="blog-footer">
                                 <span class="blog-date">2 juin 2023</span>
-                                <a href="article-css-grid.html" class="read-more">Lire l'article →</a>
+                                <a href="article-css-grid.html" class="read-more">Lire l'article <i class="fas fa-arrow-right"></i></a>
                             </div>
                         </div>
                     </article>
@@ -360,7 +506,7 @@
                         </div>
                         <div class="blog-content">
                             <span class="blog-category">Conseils</span>
-                            <h2 class="blog-title">10 astuces pour un design responsive parfait</h2>
+                            <h2 class="blog-card-title">10 astuces pour un design responsive parfait</h2>
                             <p class="blog-excerpt">Découvrez nos meilleures astuces pour créer des sites qui s'adaptent parfaitement à tous les écrans, du mobile au desktop.</p>
                             <div class="blog-meta">
                                 <div class="blog-author">
@@ -373,7 +519,7 @@
                             </div>
                             <div class="blog-footer">
                                 <span class="blog-date">20 mai 2023</span>
-                                <a href="article-responsive.html" class="read-more">Lire l'article →</a>
+                                <a href="article-responsive.html" class="read-more">Lire l'article <i class="fas fa-arrow-right"></i></a>
                             </div>
                         </div>
                     </article>
@@ -390,18 +536,18 @@
             
             <aside class="sidebar">
                 <div class="sidebar-widget">
-                    <h3 class="sidebar-title">Catégories</h3>
+                    <h3 class="sidebar-title"><i class="fas fa-tags"></i> Catégories</h3>
                     <ul class="categories-list">
-                        <li><a href="#"><i class="fas fa-code"></i> HTML</a></li>
-                        <li><a href="#"><i class="fab fa-css3-alt"></i> CSS</a></li>
-                        <li><a href="#"><i class="fas fa-mobile-alt"></i> Responsive</a></li>
-                        <li><a href="#"><i class="fas fa-lightbulb"></i> Astuces</a></li>
-                        <li><a href="#"><i class="fas fa-newspaper"></i> Actualités</a></li>
+                        <li><a href="html.html"><i class="fas fa-code"></i> HTML</a></li>
+                        <li><a href="css.html"><i class="fab fa-css3-alt"></i> CSS</a></li>
+                        <li><a href="cont.html"><i class="fas fa-mobile-alt"></i> Responsive</a></li>
+                        <li><a href="cc.html"><i class="fas fa-lightbulb"></i> Astuces</a></li>
+                        <li><a href="https://youtube.com"><i class="fas fa-newspaper"></i> Actualités</a></li>
                     </ul>
                 </div>
                 
                 <div class="sidebar-widget">
-                    <h3 class="sidebar-title">Articles populaires</h3>
+                    <h3 class="sidebar-title"><i class="fas fa-fire"></i> Articles populaires</h3>
                     <div class="popular-posts">
                         <div class="post">
                             <div class="post-image">
@@ -409,7 +555,7 @@
                             </div>
                             <div>
                                 <h4 class="post-title">Les nouvelles balises HTML5</h4>
-                                <span class="blog-date">15 juin 2023</span>
+                                <span class="post-date">15 juin 2023</span>
                             </div>
                         </div>
                         <div class="post">
@@ -418,35 +564,84 @@
                             </div>
                             <div>
                                 <h4 class="post-title">Maîtriser CSS Grid</h4>
-                                <span class="blog-date">2 juin 2023</span>
+                                <span class="post-date">2 juin 2023</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 
                 <div class="sidebar-widget newsletter-form">
-                    <h3 class="sidebar-title">Newsletter</h3>
-                    <p>Recevez nos derniers articles par email</p>
-                    <form>
-                        <input type="text" placeholder="Votre nom">
-                        <input type="email" placeholder="Votre email">
-                        <button type="submit">S'abonner</button>
+                    <h3 class="sidebar-title"><i class="fas fa-envelope"></i> Newsletter</h3>
+                    <p>Recevez nos derniers articles et tutoriels directement dans votre boîte email.</p>
+                    
+                    <form id="newsletterForm" action="https://formsubmit.co/andromintv@gmail.com" method="POST">
+                        <input type="hidden" name="_subject" value="Nouvel abonné à la newsletter ANDROMIN">
+                        <input type="hidden" name="_template" value="table">
+                        <input type="hidden" name="_next" value="https://andromin.vercel.app/merci-newsletter.html">
+                        <input type="hidden" name="_captcha" value="false">
+                        
+                        <div class="form-group">
+                            <label for="name">Votre nom</label>
+                            <input type="text" id="name" name="name" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Votre email</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                        </div>
+                        
+                        <button type="submit" class="newsletter-btn">
+                            S'abonner <i class="fas fa-paper-plane"></i>
+                        </button>
                     </form>
                 </div>
             </aside>
         </div>
     </div>
     
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span>Merci pour votre abonnement !</span>
+    </div>
+    
     <script>
-        // Système de lecture des articles (simulé)
+        // Gestion de la newsletter
+        const newsletterForm = document.getElementById('newsletterForm');
+        const notification = document.getElementById('notification');
+        
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Envoi du formulaire via FormSubmit
+            fetch(this.action, {
+                method: 'POST',
+                body: new FormData(this),
+            })
+            .then(response => {
+                if(response.ok) {
+                    // Afficher la notification
+                    notification.classList.add('show');
+                    
+                    // Cacher après 5 secondes
+                    setTimeout(() => {
+                        notification.classList.remove('show');
+                    }, 5000);
+                    
+                    // Réinitialiser le formulaire
+                    this.reset();
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+        
+        // Système de lecture des articles
         document.querySelectorAll('.read-more').forEach(link => {
             link.addEventListener('click', function(e) {
-                // Enregistrer la lecture dans localStorage
                 const articleId = this.getAttribute('href').replace('.html', '');
                 localStorage.setItem('lastRead', articleId);
-                
-                // Ici vous pourriez envoyer une statistique à votre backend
-                console.log(`Article lu: ${articleId}`);
             });
         });
         
@@ -457,10 +652,9 @@
                 if(!btn.classList.contains('active')) {
                     document.querySelector('.page-btn.active').classList.remove('active');
                     btn.classList.add('active');
-                    // Ici vous chargeriez les articles de la page correspondante
                 }
             });
         });
     </script>
 </body>
-      </html>
+</html>
