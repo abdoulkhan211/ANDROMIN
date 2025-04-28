@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
+  apiKey: process.env.OPENAI_API_KEY=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
 });
 
 // Endpoint pour ALEXIA
